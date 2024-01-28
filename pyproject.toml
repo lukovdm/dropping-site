@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dropping-site"
+version = "0.1.0"
+description = ""
+authors = ["Luko van der Maas <me@luko.dev>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "^3.0.1"
+gunicorn = "^21.2.0"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

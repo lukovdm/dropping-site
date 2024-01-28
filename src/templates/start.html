@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropping 2024</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+        * {
+            font-family: "DejaVu Sans", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the dropping <img src="https://www.clipartmax.com/png/middle/85-851004_star-clipart-transparent-background-mario-star.png" height="50px" alt="mario star"> </h1>
+    <img src="https://i.gifer.com/YBLI.gif" width="100%" alt="Dropping image">
+
+    <h3>Bowser has kidnapped Peach</h3>
+    <img src="https://i.pinimg.com/736x/80/5f/8c/805f8ce4a2193f6adb83c9d4f6603c0f--mario.jpg" width="100%" alt="Image of bowser">
+    <br>
+
+    <h3>Luckily the toads have found a secret way to there Peach is hidden, follow there hidden hints to save her</h3>
+    <img src="https://www.mariowiki.com/images/6/6d/Toad_Artwork_-_Mario_Party_5.png" width="100%" alt="Image of taod running away">
+
+    <h3>Now fill in the password to find where to go next</h3>
+    <form id="form" action="/{{ stage }}" method="post">
+        <label for="team">Team</label>
+        <select name="team" id="team">
+            {% for team in teams %}
+                <option value="{{ team }}">{{ team }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" placeholder="Password" required>
+        <br>
+        <input type="text" id="location" name="location" hidden="hidden">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if fail %}
+        <p style="color: red">Password was wrong, wait one minute before trying again</p>
+    {% endif %}
+
+    <script>
+        const locationInput = document.getElementById('location');
+        const form = document.getElementById("form");
+        form.addEventListener("submit", submitted);
+
+        function getLocation(form) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                locationInput.value = pos.coords.latitude + "," + pos.coords.longitude;
+                form.submit();
+            }, (err) => {alert(err); form.submit()}, {enableHighAccuracy: true, maximumAge: 0});
+        }
+
+        function submitted(event) {
+            getLocation(event.target);
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>
