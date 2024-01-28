@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropping 2024</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+        body {
+            font-family: "DejaVu Sans", sans-serif;
+        }
+
+        form {
+            border: black dashed 2px;
+            padding: 5px;
+        }
+
+        .rainbow {
+            background: linear-gradient(
+                to right,
+                rgba(255, 0, 0, 1) 0%,
+                rgba(255, 154, 0, 1) 10%,
+                rgba(208, 222, 33, 1) 20%,
+                rgba(79, 220, 74, 1) 30%,
+                rgba(63, 218, 216, 1) 40%,
+                rgba(47, 201, 226, 1) 50%,
+                rgba(28, 127, 238, 1) 60%,
+                rgba(95, 21, 242, 1) 70%,
+                rgba(186, 12, 248, 1) 80%,
+                rgba(251, 7, 217, 1) 90%,
+                rgba(255, 0, 0, 1) 100%
+            );
+            background-size: 200% 200%;
+            animation: a 2s linear infinite;
+            width: 100%;
+        }
+
+        @keyframes a {
+            from {background-position-x: 0;}
+            to {background-position-x: 200%}
+        }
+
+        .star {
+            animation: star 0.5s steps(1) infinite;
+        }
+
+        @keyframes star {
+            0% {
+                opacity: 1%;
+            }
+            50% {
+                opacity: 100%;
+            }
+            100% {
+                opacity: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% block content %}{% endblock %}
+
+    <div class="rainbow">
+        <form id="form" action="/{{ stage }}" method="post">
+            <label for="team">Team</label>
+            <select name="team" id="team">
+                {% for team in teams %}
+                    <option value="{{ team }}">{{ team }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password" placeholder="Password" required>
+            <br>
+            <input type="text" id="location" name="location" hidden="hidden">
+            <br>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% if fail %}
+        <p style="color: red">{% block fail %}{% endblock %}</p>
+    {% endif %}
+
+    <script>
+        const locationInput = document.getElementById('location');
+        const form = document.getElementById("form");
+        form.addEventListener("submit", submitted);
+
+        function getLocation(form) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                locationInput.value = pos.coords.latitude + "," + pos.coords.longitude;
+                form.submit();
+            }, (err) => {alert(err); form.submit()}, {enableHighAccuracy: true, maximumAge: 0});
+        }
+
+        function submitted(event) {
+            getLocation(event.target);
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>
