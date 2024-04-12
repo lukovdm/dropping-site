@@ -12,6 +12,7 @@ stages = OrderedDict(
     {  # Template, password, Name for notification
         "start": ("start.html", "password", "Start"),
         "1-1": ("1-1.html", "MarioStinks", "Mariokart"),
+        "tournament": ("tournament.html", "Only9th", "Tournament"),
     }
 )
 
@@ -54,12 +55,28 @@ def stage_post(stage):
         next_stage = list(stages.keys())[list(stages.keys()).index(stage) + 1]
         return redirect(f"/{next_stage}")
     else:
-        requests.post(
-            f"https://ntfy.sh/{NTFY_CHANNEL}",
-            data=f"""Team {request.form['team']} has failed stage {stages[stage][2]} 
-They filled in {request.form['password']}
-But it should have been {stages[stage][1]}""",
-            headers={"Title": "Stage failed", "Priority": "urgent", "Tags": "x"},
+        r = requests.post(
+            "https://ntfy.sh/",
+            data=json.dumps(
+                {
+                    "topic": NTFY_CHANNEL,
+                    "message": f"""Team {request.form['team']} has failed stage {stages[stage][2]} 
+                                   They filled in {request.form['password']}
+                                   But it should have been {stages[stage][1]}""",
+                    "title": "Stage failed",
+                    "priority": 4,
+                    "tags": ["x"],
+                    "Actions": [
+                        {
+                            "action": "view",
+                            "label": "Open in map",
+                            "url": f"geo:{request.form['location']}",
+                        }
+                    ],
+                },
+            ),
         )
+
+        print(r.status_code, r.text, request.form["location"])
 
         return render_template(stages[stage][0], fail=True, stage=stage, teams=teams)

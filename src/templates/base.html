@@ -7,6 +7,18 @@
     <style>
         body {
             font-family: "DejaVu Sans", sans-serif;
+            background-color: lightgrey;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .content {
+            background-color: white;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 500px;
         }
 
         form {
@@ -57,46 +69,48 @@
     </style>
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <div class="content">
+        {% block content %}{% endblock %}
 
-    <div class="rainbow">
-        <form id="form" action="/{{ stage }}" method="post">
-            <label for="team">Team</label>
-            <select name="team" id="team">
-                {% for team in teams %}
-                    <option value="{{ team }}">{{ team }}</option>
-                {% endfor %}
-            </select>
-            <br>
-            <label for="password">Password</label>
-            <input type="text" id="password" name="password" placeholder="Password" required>
-            <br>
-            <input type="text" id="location" name="location" hidden="hidden">
-            <br>
-            <input id="submit" type="submit" value="Submit">
-        </form>
+        <div class="rainbow">
+            <form id="form" action="/{{ stage }}" method="post">
+                <label for="team">Team</label>
+                <select name="team" id="team">
+                    {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" placeholder="Password" required>
+                <br>
+                <br>
+                <input id="submit_button" type="submit" value="Submit">
+                <input type="text" id="location" name="location" hidden="hidden">
+            </form>
+        </div>
+
+        {% if fail %}
+            <p style="color: red">{% block fail %}{% endblock %}</p>
+        {% endif %}
+
+        <script>
+            const locationInput = document.getElementById('location');
+            const form = document.getElementById("form");
+            form.addEventListener("submit", submitted);
+
+            function getLocation(form) {
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    locationInput.value = pos.coords.latitude + "," + pos.coords.longitude;
+                    form.submit();
+                }, (err) => {form.submit()}, {enableHighAccuracy: true, maximumAge: 0});
+            }
+
+            function submitted(event) {
+                getLocation(event.target);
+                event.preventDefault();
+            }
+        </script>
     </div>
-
-    {% if fail %}
-        <p style="color: red">{% block fail %}{% endblock %}</p>
-    {% endif %}
-
-    <script>
-        const locationInput = document.getElementById('location');
-        const form = document.getElementById("form");
-        form.addEventListener("submit", submitted);
-
-        function getLocation(form) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                locationInput.value = pos.coords.latitude + "," + pos.coords.longitude;
-                form.submit();
-            }, (err) => {alert(err); form.submit()}, {enableHighAccuracy: true, maximumAge: 0});
-        }
-
-        function submitted(event) {
-            getLocation(event.target);
-            event.preventDefault();
-        }
-    </script>
 </body>
 </html>
