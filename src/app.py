@@ -13,6 +13,8 @@ stages = OrderedDict(
         "start": ("start.html", "password", "Start"),
         "1-1": ("1-1.html", "MarioStinks", "Mariokart"),
         "tournament": ("tournament.html", "Only9th", "Tournament"),
+        "1-4": ("smallproblems.html", "????", "Small Puzzles"),
+        "braille": ("braille.html", "Down at E", "Braille"),
     }
 )
 

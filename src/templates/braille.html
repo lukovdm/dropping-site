@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Bowser is trying to learn braille and has hidden the next step of the route using this method</h1>
+    <p>You are on a Braille grid</p>
+    <img src="/static/braille/map.svg" alt="The braille map">
+    <h3>You are currently standing at A</h3>
+    <p>You can find the hint for A at ???</p>
+    <p>Follow the hint and find the answer. To help you we have attached an explanation of Braille below.</p>
+    <div style="overflow:scroll;">
+        <img src="/static/braille/table.png" alt="The braille table" style="width: 800px">
+    </div>
+    <p>Fill in the answer as the password below</p>
+{% endblock %}
