@@ -204,7 +204,10 @@
        style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
        x="42.616047"
        y="117.33378"
-       id="text8"><tspan
+       id="text8"
+       inkscape:export-filename="../static/braille/map.svg"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
          sodipodi:role="line"
          id="tspan8"
          style="stroke-width:0.264583"></tspan></text>

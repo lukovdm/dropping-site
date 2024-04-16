@@ -74,6 +74,7 @@
     <div class="content">
         {% block content %}{% endblock %}
 
+        {% block password %}
         <div class="rainbow">
             <form id="form" action="/{{ stage }}" method="post">
                 <label for="team">Team</label>
@@ -91,6 +92,7 @@
                 <input type="text" id="location" name="location" hidden="hidden">
             </form>
         </div>
+        {% endblock %}
 
         {% if fail %}
             <p style="color: red">{% block fail %}{% endblock %}</p>

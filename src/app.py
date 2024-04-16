@@ -15,6 +15,9 @@ stages = OrderedDict(
         "tournament": ("tournament.html", "Only9th", "Tournament"),
         "1-4": ("smallproblems.html", "????", "Small Puzzles"),
         "braille": ("braille.html", "Down at E", "Braille"),
+        "whoswho": ("Photos.html", "??????", "Pictures"),
+        "final": ("Final.html", "I won", "Final markings"),
+        "done": ("Done.html", "", "Done"),
     }
 )
 
