@@ -11,7 +11,7 @@ teams = ["Mario", "Waluigi", "Joshi", "Daisy"]
 stages = OrderedDict(
     {  # Template, password, Name for notification
         "start": ("start.html", "password", "Start"),
-        "1-1": ("1-1.html", "MarioStinks", "Mariokart"),
+        "1-1": ("1-1.html", "Take road A", "Mariokart"),
         "tournament": ("tournament.html", "Only9th", "Tournament"),
         "1-4": ("smallproblems.html", "WhiteRabbit", "Small Puzzles"),
         "braille": ("braille.html", "Down At E", "Braille"),
@@ -34,7 +34,7 @@ def stage(stage):
 
 @app.post("/<stage>")
 def stage_post(stage):
-    if request.form["password"] == stages[stage][1]:
+    if request.form["password"].lower() == stages[stage][1].lower():
 
         r = requests.post(
             "https://ntfy.sh/",
