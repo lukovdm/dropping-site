@@ -11,8 +11,8 @@ teams = ["Mario", "Waluigi", "Joshi", "Daisy"]
 stages = OrderedDict(
     {  # Template, password, Name for notification
         "start": ("start.html", "password", "Start"),
-        "1-1": ("1-1.html", "Take road A", "Mariokart"),
-        "tournament": ("tournament.html", "Only9th", "Tournament"),
+        "1-1": ("1-1.html", "Only9th", "Mariokart"),
+        "tournament": ("tournament.html", "Take road A", "Tournament"),
         "1-4": ("smallproblems.html", "WhiteRabbit", "Small Puzzles"),
         "braille": ("braille.html", "Down At E", "Braille"),
         "whoswho": ("Photos.html", "Votos", "Pictures"),
